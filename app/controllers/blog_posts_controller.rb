@@ -1,10 +1,10 @@
 class BlogPostsController < ApplicationController
+  before_action :set_blog_post, only: %i[ edit show update ]
   def index
     @blog_posts = BlogPost.all
   end
 
   def show
-    @blog_post = BlogPost.find(params[:id])
   end
 
   def new
@@ -16,9 +16,25 @@ class BlogPostsController < ApplicationController
     if @blog_post.save
       redirect_to @blog_post
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
+
+  def edit
+  end
+
+  def update
+    if @blog_post.update(blog_post_params)
+      redirect_to @blog_post
+    else
+      render :edit, status: :unprocessable_content
+    end
+  end
+
+  private
+    def set_blog_post
+      @blog_post = BlogPost.find(params[:id])
+    end
 
   private
     def blog_post_params
