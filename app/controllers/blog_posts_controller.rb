@@ -41,7 +41,6 @@ class BlogPostsController < ApplicationController
       @blog_post = BlogPost.find(params[:id])
     end
 
-  private
     def blog_post_params
       params.expect(blog_post: [ :title, :body ])
     end
